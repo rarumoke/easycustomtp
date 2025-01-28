@@ -1,0 +1,17 @@
+name: easycustomtp
+version: '1.0'
+main: net.harupiza.easycustomtp.Easycustomtp
+api-version: '1.21'
+
+commands:
+  warp:
+    aliases: [wp]
+    usage: /warp <name>
+  warpedit:
+    aliases: [warpe, wpe]
+    permission: easycustomtp.warpedit
+    usage: /warpedit <name>
+
+permissions:
+  easycustomtp.warpedit:
+    default: op
