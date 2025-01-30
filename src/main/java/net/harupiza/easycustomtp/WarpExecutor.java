@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 public class WarpExecutor implements CommandExecutor {
     private final Easycustomtp plugin;
@@ -18,11 +17,13 @@ public class WarpExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] strings) {
         if (commandSender instanceof Player player) {
-            var loc = Objects.requireNonNull(
-                    plugin.warpPoints.stream().filter(
-                            wp -> wp.name.equals(strings[0])).findFirst().orElse(null)).location;
-            if (loc == null) return false;
-            player.teleport(loc);
+            var loc = plugin.warpPoints.stream().filter(
+                            wp -> wp.name.equals(strings[0])).toList().getLast();
+            if (loc == null) {
+                player.sendMessage(strings[0] + "は存在しません");
+                return false;
+            }
+            player.teleport(loc.location);
             player.sendMessage(strings[0] + "へテレポートしました！");
             return true;
         }
